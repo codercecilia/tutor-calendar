@@ -7,11 +7,13 @@
 		<script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.1/moment.min.js'></script>
 		<script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.js'></script>
 		<script>
-			$(function() { // document ready
+			
+
+  $(function() { // document ready
 
     $('#calendar').fullCalendar({
       defaultView: 'agendaDay',
-      defaultDate: '2018-05-12',
+      defaultDate: '2018-04-07',
       editable: true,
       selectable: true,
       eventLimit: true, // allow "more" link when too many events
@@ -38,9 +40,17 @@
       //allDaySlot: false,
 
       resources: [
+        { id: 'a', title: 'Room A' },
+        { id: 'b', title: 'Room B', eventColor: 'green' },
+        { id: 'c', title: 'Room C', eventColor: 'orange' },
+        { id: 'd', title: 'Room D', eventColor: 'red' }
       ],
-	events: './Albert.json'
-
+      events: [
+        { id: '1', resourceId: 'a', start: '2018-04-06', end: '2018-04-08', title: 'event 1' },
+        { id: '2', resourceId: 'a', start: '2018-04-07T09:00:00', end: '2018-04-07T14:00:00', title: 'event 2' },
+        { id: '3', resourceId: 'b', start: '2018-04-07T12:00:00', end: '2018-04-08T06:00:00', title: 'event 3' },
+        { id: '4', resourceId: 'c', start: '2018-04-07T07:30:00', end: '2018-04-07T09:30:00', title: 'event 4' },
+        { id: '5', resourceId: 'd', start: '2018-04-07T10:00:00', end: '2018-04-07T15:00:00', title: 'event 5' }
       ],
 
       select: function(start, end, jsEvent, view, resource) {
@@ -61,6 +71,8 @@
     });
   
   });
+
+
 
 		</script>
 
