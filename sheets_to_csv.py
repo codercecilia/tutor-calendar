@@ -53,6 +53,7 @@ def create_html_calendars(tutors):
 
 def create_index_html(tutors):
     indexList = ""
+    tutors.sort()
     for name in tutors:
         indexList = indexList +"<p><a href = \"" + name + ".html\">" + name + " </a></p>"
     indexfile = open("index_template.html", 'r')
