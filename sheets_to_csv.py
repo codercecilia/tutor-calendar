@@ -8,22 +8,12 @@ import sys, string
 
 
 csvfile = open('Tutor Schedule Beta - Convert to CSV.csv', 'r')
-jsonfile = open('test.json', 'w')
 
 fieldnames = ("title", "start", "end")
 reader = csv.DictReader( csvfile, fieldnames)
 readerList = list(reader)
 
-def write_to_one_file( jsonfile,readerList):
-    jsonfile.write('[\n')
-    for row in range(1, len(readerList)):
-        json.dump(readerList[row], jsonfile)
-        if row != len(readerList) - 1:
-            jsonfile.write(',')
-        jsonfile.write('\n')
-    jsonfile.write(']\n')
-
-def write_to_many_files(jsonfile, readerList):
+def write_to_many_files(readerList):
     tutors = []
     for row in range(1, len(readerList)):
         name = str.split(readerList[row]["title"])[0]
@@ -61,7 +51,7 @@ def create_html_calendars(tutors):
 def create_index_html(tutors):
     indexList = ""
     for name in tutors:
-        indexList = indexList +"<p><a href = \"" + name + ".html\">" + name + " </a></p><br>"
+        indexList = indexList +"<p><a href = \"" + name + ".html\">" + name + " </a></p>"
     indexfile = open("index_template.html", 'r')
     indexdata = indexfile.read()
     indexdata = indexdata.replace("<p><a href=\"albert.html\">Albert</a></p>", indexList)
@@ -71,10 +61,12 @@ def create_index_html(tutors):
 
 
 # Create JSON files
-tutors = write_to_many_files(jsonfile, readerList)
+tutors = write_to_many_files(readerList)
 write_last_bracket(tutors)
+
+#Create HTML templates
 create_html_calendars(tutors)
 create_index_html(tutors)
 
-#Create HTML templates
-
+#Delete files
+#delete_files(tutors)
