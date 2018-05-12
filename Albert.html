@@ -7,18 +7,60 @@
 		<script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.1/moment.min.js'></script>
 		<script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.js'></script>
 		<script>
-			$(function() {
-			  	// page is now ready, initialize the calendar...
-			  	$('#calendar').fullCalendar({
-			    	// put your options and callbacks here
-			    	header: {
-                        left: 'prev,next today',
-                        center: 'title',
-                        right: 'month,basicWeek,basicDay'
-                    },
-			    	events: './Albert.json'
-			  	})
-			});
+			$(function() { // document ready
+
+    $('#calendar').fullCalendar({
+      defaultView: 'agendaWeek',
+      defaultDate: '2018-05-12',
+      editable: true,
+      selectable: true,
+      eventLimit: true, // allow "more" link when too many events
+      header: {
+        left: 'prev,next today',
+        center: 'title',
+        right: 'agendaDay,agendaTwoDay,agendaWeek,month'
+      },
+      views: {
+        agendaTwoDay: {
+          type: 'agenda',
+          duration: { days: 2 },
+
+          // views that are more than a day will NOT do this behavior by default
+          // so, we need to explicitly enable it
+          groupByResource: true
+
+          //// uncomment this line to group by day FIRST with resources underneath
+          //groupByDateAndResource: true
+        }
+      },
+
+      //// uncomment this line to hide the all-day slot
+      //allDaySlot: false,
+
+      resources: [
+      ],
+      events: './Albert.json'
+      ],
+
+      select: function(start, end, jsEvent, view, resource) {
+        console.log(
+          'select',
+          start.format(),
+          end.format(),
+          resource ? resource.id : '(no resource)'
+        );
+      },
+      dayClick: function(date, jsEvent, view, resource) {
+        console.log(
+          'dayClick',
+          date.format(),
+          resource ? resource.id : '(no resource)'
+        );
+      }
+    });
+  
+  });
+
 		</script>
 
 	</head>
@@ -26,3 +68,7 @@
 		<div id='calendar'></div>
 	</body>
 </html>
+
+
+
+  
