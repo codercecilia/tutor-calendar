@@ -20,9 +20,11 @@ def write_to_many_files(readerList):
         tutorfile = open(name + ".json", 'a')
         if name in tutors:
             tutorfile.write(',')
+            tutorfile.write('\n')
             json.dump(readerList[row], tutorfile, indent=1)
         else:
             tutorfile.write('[')
+            tutorfile.write('\n')
             tutors.append(name)
             json.dump(readerList[row], tutorfile, indent=1)
     return tutors
@@ -30,6 +32,7 @@ def write_to_many_files(readerList):
 def write_last_bracket(tutors):
     for name in tutors:
         tutorfile = open(name+".json", 'a')
+        tutorfile.write('\n')
         tutorfile.write(']')
 
 def delete_files(tutors):
